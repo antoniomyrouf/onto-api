@@ -4,6 +4,19 @@ from pydantic import BaseModel
 from openai import OpenAI
 
 app = FastAPI()
+from fastapi.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "https://anima-omnia.com",  
+        "https://www.anima-omnia.com
+    ],
+    allow_credentials=False,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 class ChatIn(BaseModel):
