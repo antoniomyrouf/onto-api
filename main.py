@@ -2,17 +2,18 @@ import os
 from fastapi import FastAPI
 from pydantic import BaseModel
 from openai import OpenAI
-
-app = FastAPI()
 from fastapi.middleware.cors import CORSMiddleware
 
+app = FastAPI()
+
+# 🔥 CORS DOIT ÊTRE AJOUTÉ JUSTE APRÈS FastAPI()
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "https://anima-omnia.com",
         "https://www.anima-omnia.com"
     ],
-    allow_credentials=False,
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
