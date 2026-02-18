@@ -10,7 +10,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "https://anima-omnia.com",  
-        "https://www.anima-omnia.com
+        "https://www.anima-omnia.com"
     ],
     allow_credentials=False,
     allow_methods=["*"],
