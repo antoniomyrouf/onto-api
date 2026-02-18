@@ -2,6 +2,7 @@ import os
 from fastapi import FastAPI
 from pydantic import BaseModel
 from openai import OpenAI
+from fastapi import Header
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -28,9 +29,11 @@ def root():
     return {"message": "Onto API is running"}
 
 @app.post("/chat")
-def chat(payload: ChatIn):
-    response = client.responses.create(
-        model="gpt-4.1",
-        input=payload.user_input
-    )
-    return {"response": response.output_text}
+def chat(
+    payload: ChatIn,
+    x_onto_key: str | None = Header(default=None)
+):
+    uid = payload.user_id or "public"
+    text = payload.user_input.strip()
+    return {"response": onto_reply(text, user_id=uid, pro_key=x_onto_key)}
+
